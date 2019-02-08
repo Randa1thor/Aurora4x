@@ -2,10 +2,14 @@ import tkinter as tk
 from aurora4x.systemmap.framebuilders.systemtime import TimeFrame
 from aurora4x.systemmap.framebuilders.topbuttonframe import TopButtonFrame
 from aurora4x.systemmap.framebuilders.systempulse import PulseFrame
-from aurora4x.systemmap.framebuilders.displayframe import DisplayFrame
+from aurora4x.systemmap.framebuilders.tabbedframes.displayframe import DisplayFrame
+from aurora4x.systemmap.framebuilders.tabbedframes.bodyinfo import BodyInfoFrame
+
+
 from tkinter import font as fnt
 from tkinter import Frame
 import tkinter.ttk as ttk
+import aurora4x
 
 
 root=tk.Tk()
@@ -43,15 +47,26 @@ pulseframe_window = canvas.create_window(0, 90, anchor=tk.NW, window=pulseframe)
 book_x=[0,15,30]
 book_y=[140,160,180]
 
+notebookwidth=215
+
+bgcolor="#ECE9D8"
+
 n=ttk.Notebook(root)
 
-display=DisplayFrame(root, bg="#ECE9D8")
+display=DisplayFrame(n, bg=bgcolor)
 
 n.add(display, text="Display")
-n.add(Frame(root), text="Body Info")
+
+bodyinfo=BodyInfoFrame(n, bg=bgcolor)
+
+bodyinfo.pack(fill=tk.BOTH, expand=True)
+
+n.add(bodyinfo, text="Body Info")
 n.add(Frame(root), text="All Bodies")
 
-display_window=canvas.create_window(book_x[2], book_y[2], anchor=tk.NW, window=n, width=200)
+n.configure(width=notebookwidth)
+
+display_window=canvas.create_window(book_x[2], book_y[2], anchor=tk.NW, window=n, width=notebookwidth)
 
 n=ttk.Notebook(root)
 
@@ -59,7 +74,7 @@ n.add(Frame(root), text="Sensors")
 n.add(Frame(root), text="Waypoints")
 n.add(Frame(root), text="Contacts")
 
-display_window=canvas.create_window(book_x[1], book_y[1], anchor=tk.NW, window=n, width=200)
+display_window=canvas.create_window(book_x[1], book_y[1], anchor=tk.NW, window=n, width=notebookwidth)
 
 n=ttk.Notebook(root)
 
@@ -68,7 +83,7 @@ n.add(Frame(root), text="Minerals")
 n.add(Frame(root), text="Display2")
 
 
-display_window=canvas.create_window(book_x[0], book_y[0], anchor=tk.NW, window=n, width=200)
+display_window=canvas.create_window(book_x[0], book_y[0], anchor=tk.NW, window=n, width=notebookwidth)
 
 
 
